@@ -5,9 +5,11 @@ import { useOrganization, useOrganizationList } from "@clerk/nextjs"
 import { Plus } from "lucide-react"
 import Link from "next/link"
 import { useLocalStorage } from "usehooks-ts"
+import { NavItem } from "./NavItem"
+import { Organization } from "./NavItem"
 
 type SidebarProps = {
-  storageKey: string
+  storageKey?: string
 }
 
 export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
@@ -58,7 +60,15 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
         className="space-y-2"
       >
         {userMemberships.data?.map(({ organization }) => {
-          return <p key={organization.id}>{organization.name}</p>
+          return (
+            <NavItem
+              key={organization.id}
+              isActive={activeOrganization?.id === organization.id}
+              isExpanded={expanded[organization.id]}
+              organization={organization as Organization}
+              onExpand={onExpand}
+            />
+          )
         })}
       </Accordion>
     </>
