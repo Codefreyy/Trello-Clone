@@ -1,8 +1,9 @@
 "use client"
 import { Accordion } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
 import { useOrganization, useOrganizationList } from "@clerk/nextjs"
-import { Plus } from "lucide-react"
+import { LoaderIcon, Plus } from "lucide-react"
 import Link from "next/link"
 import { useLocalStorage } from "usehooks-ts"
 import { NavItem } from "./NavItem"
@@ -43,6 +44,21 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
     []
   )
 
+  if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
+    return (
+      <>
+        <div className="flex items-center justify-between mb-2">
+          <Skeleton className="h-10 w-[50%]" />
+          <Skeleton className="h-10 w-10" />
+        </div>
+        <div className="space-y-2">
+          {Array.from({ length: 8 }).map((_, idx) => (
+            <NavItem.Skeleton key={idx} />
+          ))}
+        </div>
+      </>
+    )
+  }
   return (
     <>
       <div className="font-medium text-xs flex items-center mb-1">
