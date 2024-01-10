@@ -1,6 +1,12 @@
 import { Logo } from "@/components/logo"
 import { Button } from "@/components/ui/button"
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs"
+import { Skeleton } from "@/components/ui/skeleton"
+import {
+  OrganizationSwitcher,
+  useOrganization,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs"
 import { Plus } from "lucide-react"
 import { MobileSidebar } from "./MobileSidebar"
 
