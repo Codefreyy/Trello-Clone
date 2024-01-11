@@ -2,8 +2,9 @@
 
 import { createBoard } from "@/actions/create-board"
 import { MyButton } from "./Button"
-import { FormInput } from "./FormInput"
+
 import { useAction } from "@/hooks/use-action"
+import { FormInput } from "@/components/form/form-input"
 
 export const Form = () => {
   const { execute, fieldErrors } = useAction(createBoard, {
@@ -18,10 +19,11 @@ export const Form = () => {
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string
     execute({ title })
+    console.log({ title })
   }
   return (
     <form action={onSubmit} className="flex gap-2">
-      <FormInput errors={fieldErrors} />
+      <FormInput errors={fieldErrors} id="title" name="title" label="Title" />
       <MyButton />
     </form>
   )
