@@ -5,6 +5,7 @@ import { MyButton } from "./Button"
 
 import { useAction } from "@/hooks/use-action"
 import { FormInput } from "@/components/form/form-input"
+import { FormButton } from "@/components/form/form-button"
 
 export const Form = () => {
   const { execute, fieldErrors } = useAction(createBoard, {
@@ -22,9 +23,9 @@ export const Form = () => {
     console.log({ title })
   }
   return (
-    <form action={onSubmit} className="flex gap-2">
+    <form action={onSubmit} className="flex gap-2 items-end">
       <FormInput errors={fieldErrors} id="title" name="title" label="Title" />
-      <MyButton />
+      <FormButton variant="default">Submit</FormButton>
     </form>
   )
 }
