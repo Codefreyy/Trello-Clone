@@ -37,6 +37,8 @@ export const useAction = <TInput, TOutput>(
                 }
                 if (result.fieldErrors) {
                     setFieldErrors(result.fieldErrors)
+                } else {
+                    setFieldErrors({})
                 }
                 if (result.error) {
                     setError(result.error)
@@ -53,7 +55,7 @@ export const useAction = <TInput, TOutput>(
             }
         }, [action, options]
     )
-
+    console.log(fieldErrors, 'error')
     return {
         execute,
         data,
