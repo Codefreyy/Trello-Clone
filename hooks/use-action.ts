@@ -52,7 +52,6 @@ export const useAction = <TInput, TOutput>(
             }
         }, [action, options]
     )
-    console.log(fieldErrors, 'error')
     return {
         execute,
         data,
