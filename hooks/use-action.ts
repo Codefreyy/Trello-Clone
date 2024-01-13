@@ -35,11 +35,8 @@ export const useAction = <TInput, TOutput>(
                 if (!result) {
                     return
                 }
-                if (result.fieldErrors) {
-                    setFieldErrors(result.fieldErrors)
-                } else {
-                    setFieldErrors({})
-                }
+                setFieldErrors(result.fieldErrors)
+
                 if (result.error) {
                     setError(result.error)
                     options.onError?.(result.error)
