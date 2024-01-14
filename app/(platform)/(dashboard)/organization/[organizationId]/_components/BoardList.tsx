@@ -1,6 +1,6 @@
 import { HelpCircle, User2 } from "lucide-react"
 import { Hint } from "./Hint"
-import { FormPopover } from "./FormPopover"
+import { FormPopover } from "@/components/form/form-popover"
 
 export const BoardList = () => {
   return (
