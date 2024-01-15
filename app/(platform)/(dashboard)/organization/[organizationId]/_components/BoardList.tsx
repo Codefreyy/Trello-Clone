@@ -5,6 +5,7 @@ import { redirect } from "next/navigation"
 import { db } from "@/lib/db"
 import Link from "next/link"
 import { auth } from "@clerk/nextjs"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export const BoardList = async () => {
   const { orgId } = auth()
@@ -66,6 +67,16 @@ export const BoardList = async () => {
           </div>
         </FormPopover>
       </div>
+    </div>
+  )
+}
+
+BoardList.Skeleton = function SkeletonBoardList() {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      <Skeleton className="aspect-ratio w-full h-full p-2" />
+      <Skeleton className="aspect-ratio w-full h-full p-2" />
+      <Skeleton className="aspect-ratio w-full h-full p-2" />
     </div>
   )
 }
