@@ -11,6 +11,7 @@ const OrganizationIdPage = async () => {
         <Separator />
         <div className="px-2 md:px-2">
           <Suspense fallback={<BoardList.Skeleton />}>
+            {/* @ts-expect-error Async Server Component */}
             <BoardList />
           </Suspense>
         </div>

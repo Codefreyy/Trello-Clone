@@ -22,8 +22,6 @@ export const BoardList = async () => {
     },
   })
 
-  console.log({ boards })
-
   return (
     <div className="space-y-4">
       <div className="flex gap-2 items-center text-lg font-semibold">
@@ -74,6 +72,12 @@ export const BoardList = async () => {
 BoardList.Skeleton = function SkeletonBoardList() {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      <Skeleton className="aspect-ratio w-full h-full p-2" />
+      <Skeleton className="aspect-ratio w-full h-full p-2" />
+      <Skeleton className="aspect-ratio w-full h-full p-2" />
+      <Skeleton className="aspect-ratio w-full h-full p-2" />
+      <Skeleton className="aspect-ratio w-full h-full p-2" />
+      <Skeleton className="aspect-ratio w-full h-full p-2" />{" "}
       <Skeleton className="aspect-ratio w-full h-full p-2" />
       <Skeleton className="aspect-ratio w-full h-full p-2" />
       <Skeleton className="aspect-ratio w-full h-full p-2" />
