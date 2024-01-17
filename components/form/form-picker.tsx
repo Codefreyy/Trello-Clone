@@ -28,7 +28,6 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
           collectionIds: ["317099"],
           count: 9,
         })
-        console.log({ result })
         if (result && result.response) {
           const newImages = result.response as Array<Record<string, any>>
           setImages(newImages)
@@ -37,7 +36,6 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
           setImages(defaultImages)
         }
       } catch (e) {
-        console.log(e)
         setImages(defaultImages)
       } finally {
         setIsLoading(false)

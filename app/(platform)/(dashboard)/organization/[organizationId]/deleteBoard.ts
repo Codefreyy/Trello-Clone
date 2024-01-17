@@ -10,6 +10,5 @@ export async function deleteBoard(id: string) {
         }
     })
 
-    console.log(id)
     revalidatePath(`/organization/org_2ajQ9Xq3KZe392jfPMKwYTrqxKR`)
 }

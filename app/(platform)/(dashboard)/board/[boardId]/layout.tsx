@@ -1,6 +1,7 @@
 import { db } from "@/lib/db"
 import { auth } from "@clerk/nextjs"
 import { notFound, redirect } from "next/navigation"
+import BoardNavbar from "./_components/board-navbar"
 
 export async function generateMetadata({
   params,
@@ -45,7 +46,8 @@ const boardIdPageLayout = async ({
       className="relative bg-center bg-no-repeat bg-cover h-full"
       style={{ backgroundImage: `url(${board.imageFullUrl})` }}
     >
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-black/10" />
+      <BoardNavbar data={board}/>
       <main className="relative pt-28 h-full">
         {" "}
         {children}
