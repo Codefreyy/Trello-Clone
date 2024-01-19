@@ -21,7 +21,41 @@ datasource db {
   imageUserName String @db.Text
   imageLinkHTML String @db.Text
 
+  List          List[]
+
   createAt      DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+}
+
+
+model List {
+  id      String @id @default(uuid())
+  title   String
+  order   Int
+  boardId String
+  board   Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  cards    Card[]
+
+  createAt      DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([boardId])
+}
+
+model Card {
+  id          String @id @default(uuid())
+  title       String
+  order       Int
+  description String? @db.Text
+
+  listId      String
+  list        List @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  createAt      DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([listId])
+  // 创建索引注解，这个索引可以帮助数据库在执行涉及 boardId 列的查询时更快地定位和检索数据。例如，当你需要根据 boardId 值来查询特定 List 对象时，这个索引可以提高查询效率。
 }
