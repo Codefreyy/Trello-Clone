@@ -22,7 +22,6 @@ export async function generateMetadata({
   }
 }
 
-
 const boardIdPageLayout = async ({
   children,
   params,
@@ -47,12 +46,8 @@ const boardIdPageLayout = async ({
       style={{ backgroundImage: `url(${board.imageFullUrl})` }}
     >
       <div className="absolute inset-0 bg-black/10" />
-      <BoardNavbar data={board}/>
-      <main className="relative pt-28 h-full">
-        {" "}
-        {children}
-        {JSON.stringify(board)}
-      </main>
+      <BoardNavbar data={board} />
+      <main className="relative pt-28 h-full"> {children}</main>
     </div>
   )
 }

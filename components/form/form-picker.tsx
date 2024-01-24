@@ -32,7 +32,6 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
           const newImages = result.response as Array<Record<string, any>>
           setImages(newImages)
         } else {
-          console.error("Failed to fetch images from Unsplash!")
           setImages(defaultImages)
         }
       } catch (e) {
