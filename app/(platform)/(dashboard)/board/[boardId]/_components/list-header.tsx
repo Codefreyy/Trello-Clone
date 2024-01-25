@@ -5,8 +5,9 @@ import { FormInput } from "@/components/form/form-input"
 import { useAction } from "@/hooks/use-action"
 import { List } from "@prisma/client"
 import { ElementRef, useRef, useState } from "react"
-import { useEventListener, useOnClickOutside } from "usehooks-ts"
+import { useEventListener } from "usehooks-ts"
 import { toast } from "sonner"
+import { ListOption } from "./list-options"
 
 interface ListHeaderProps {
   data: List
@@ -98,6 +99,7 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
           {title}
         </div>
       )}
+      <ListOption onAddCard={() => {}} data={data} />
     </div>
   )
 }
