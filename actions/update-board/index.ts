@@ -32,7 +32,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         })
     } catch (error) {
         return {
-            error: 'Failed to create'
+            error: 'Failed to update'
         }
     }
 

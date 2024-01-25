@@ -11,6 +11,9 @@ import {
 import { List } from "@prisma/client"
 import { MoreHorizontal, X } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
+import { useAction } from "@/hooks/use-action"
+import { deleteList } from "../../../../../../actions/delete-list/index"
+import { toast } from "sonner"
 
 interface ListOptionsProps {
   data: List
@@ -18,6 +21,22 @@ interface ListOptionsProps {
 }
 
 export const ListOption = ({ data, onAddCard }: ListOptionsProps) => {
+  const { execute, isLoading } = useAction(deleteList, {
+    onSuccess(data) {
+      toast.success("List deleted successfully")
+    },
+    onError(error) {
+      toast.error(error)
+    },
+  })
+
+  function onSubmit(formData: FormData) {
+    const id = formData.get("id") as string
+    const boardId = formData.get("boardId") as string
+
+    execute({ id, boardId })
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -56,12 +75,13 @@ export const ListOption = ({ data, onAddCard }: ListOptionsProps) => {
           </FormSubmit>
         </form>
         <Separator />
-        <form>
+        <form action={onSubmit}>
           <input hidden id="id" name="id" value={data.id} />
           <input hidden id="boardId" name="boardId" value={data.boardId} />
           <FormSubmit
             className="w-full h-auto justify-start font-normal p-2 px-5 text-sm rounded-none "
             variant="ghost"
+            disabled={isLoading}
           >
             Delete list...
           </FormSubmit>
