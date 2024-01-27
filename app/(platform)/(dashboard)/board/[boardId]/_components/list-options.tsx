@@ -16,6 +16,7 @@ import { deleteList } from "../../../../../../actions/delete-list/index"
 import { toast } from "sonner"
 import { useRef } from "react"
 import { ElementRef } from "react"
+import { copyList } from "@/actions/copy-list"
 
 interface ListOptionsProps {
   data: List
@@ -34,11 +35,31 @@ export const ListOption = ({ data, onAddCard }: ListOptionsProps) => {
     },
   })
 
+  const { execute: copyListExecute, isLoading: copyListLoading } = useAction(
+    copyList,
+    {
+      onSuccess: data => {
+        toast.success(`List ${data.title} copied!`)
+        closeRef?.current?.click()
+      },
+      onError: error => {
+        toast.error(error)
+      },
+    }
+  )
+
   function onDelete(formData: FormData) {
     const id = formData.get("id") as string
     const boardId = formData.get("boardId") as string
 
     execute({ id, boardId })
+  }
+
+  function onCopy(formData: FormData) {
+    const id = formData.get("id") as string
+    const boardId = formData.get("boardId") as string
+
+    copyListExecute({ id, boardId })
   }
 
   return (
@@ -69,12 +90,13 @@ export const ListOption = ({ data, onAddCard }: ListOptionsProps) => {
         >
           Add card...
         </Button>
-        <form>
+        <form action={onCopy}>
           <input hidden id="id" name="id" value={data.id} />
           <input hidden id="boardId" name="boardId" value={data.boardId} />
           <FormSubmit
             className="w-full h-auto justify-start font-normal p-2 px-5 text-sm rounded-none "
             variant="ghost"
+            disabled={copyListLoading}
           >
             Copy list...
           </FormSubmit>
