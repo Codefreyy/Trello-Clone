@@ -14,6 +14,8 @@ import { Separator } from "@/components/ui/separator"
 import { useAction } from "@/hooks/use-action"
 import { deleteList } from "../../../../../../actions/delete-list/index"
 import { toast } from "sonner"
+import { useRef } from "react"
+import { ElementRef } from "react"
 
 interface ListOptionsProps {
   data: List
@@ -21,16 +23,18 @@ interface ListOptionsProps {
 }
 
 export const ListOption = ({ data, onAddCard }: ListOptionsProps) => {
+  const closeRef = useRef<ElementRef<"button">>(null)
   const { execute, isLoading } = useAction(deleteList, {
     onSuccess(data) {
-      toast.success("List deleted successfully")
+      toast.success(`List ${data.title} deleted!`)
+      closeRef?.current?.click()
     },
     onError(error) {
       toast.error(error)
     },
   })
 
-  function onSubmit(formData: FormData) {
+  function onDelete(formData: FormData) {
     const id = formData.get("id") as string
     const boardId = formData.get("boardId") as string
 
@@ -51,6 +55,7 @@ export const ListOption = ({ data, onAddCard }: ListOptionsProps) => {
         </div>
         <PopoverClose asChild>
           <Button
+            ref={closeRef}
             className="absolute top-2 right-2 h-auto w-auto text-neutral-600"
             variant="ghost"
           >
@@ -75,7 +80,7 @@ export const ListOption = ({ data, onAddCard }: ListOptionsProps) => {
           </FormSubmit>
         </form>
         <Separator />
-        <form action={onSubmit}>
+        <form action={onDelete}>
           <input hidden id="id" name="id" value={data.id} />
           <input hidden id="boardId" name="boardId" value={data.boardId} />
           <FormSubmit

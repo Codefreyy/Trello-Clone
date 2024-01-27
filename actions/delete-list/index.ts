@@ -19,9 +19,10 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
     const { id, boardId } = data
 
+    let list
 
     try {
-        await db.list.delete({
+        list = await db.list.delete({
             where: {
                 id
             },
@@ -33,7 +34,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     }
 
     revalidatePath(`/board/${boardId}`)
-    redirect(`/board/${boardId}`)
+    return {
+        data: list
+    }
 
 
 }
