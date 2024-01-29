@@ -24,14 +24,15 @@ export function ListItem({ data, index }: ListItemProps) {
   return (
     <li className="h-full shrink-0 select-none w-[272px]">
       <div className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2">
-        <ListHeader data={data} />
+        <ListHeader data={data} onAddCard={enableEditing} />
+        <CardForm
+          ref={textareaRef}
+          listId={data.id}
+          isEditing={isEditing}
+          enableEditing={enableEditing}
+          disableEditing={disableEditing}
+        />
       </div>
-      <CardForm
-        listId={data.id}
-        isEditing={isEditing}
-        enableEditing={enableEditing}
-        disableEditing={disableEditing}
-      />
     </li>
   )
 }
