@@ -16,12 +16,12 @@ interface BoardTitleFormProps {
 
 export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
   const { execute } = useAction(updateBoard, {
-    onSuccess: (data) => {
+    onSuccess: data => {
       toast.success(`Board "${data.title}" updated!`)
       setTitle(data.title)
       disableEditing()
     },
-    onError: (error) => {
+    onError: error => {
       toast.error(error)
     },
   })
@@ -46,13 +46,14 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
 
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string // !input must have a name="title" unless we can get title
+    if (title == data.title) return
     execute({
       title,
       id: data.id,
     })
   }
 
-  const onBlur = () => {
+  const onBlur = (formData: FormData) => {
     formRef.current?.requestSubmit()
   }
 
