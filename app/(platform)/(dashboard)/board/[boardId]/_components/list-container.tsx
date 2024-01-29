@@ -2,7 +2,7 @@
 
 import { ListWithCards } from "@/types"
 import { ListForm } from "./list-form"
-import {ListItem} from './list-item'
+import { ListItem } from "./list-item"
 import { useEffect, useState } from "react"
 
 interface ListContainerProps {
@@ -12,7 +12,7 @@ interface ListContainerProps {
 
 export const ListContainer = ({ data, boardId }: ListContainerProps) => {
   const [orderedData, setOrderedData] = useState(data)
-
+  console.log({ orderedData })
   useEffect(() => {
     setOrderedData(data)
   })
