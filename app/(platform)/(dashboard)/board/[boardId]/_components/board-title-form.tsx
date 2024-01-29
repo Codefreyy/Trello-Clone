@@ -53,7 +53,7 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
     })
   }
 
-  const onBlur = (formData: FormData) => {
+  const onBlur = () => {
     formRef.current?.requestSubmit()
   }
 
