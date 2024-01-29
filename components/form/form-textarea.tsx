@@ -39,6 +39,7 @@ export const FormTextArea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
     ref
   ) => {
     const { pending } = useFormStatus()
+
     return (
       <div className="space-y-2 w-full">
         <div className="space-y-1 w-full">
