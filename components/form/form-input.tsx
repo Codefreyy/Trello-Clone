@@ -49,6 +49,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             </Label>
           ) : null}
           <Input
+            ref={ref}
             onBlur={onBlur}
             defaultValue={defaultValue}
             required={required}
