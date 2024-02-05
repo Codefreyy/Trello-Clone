@@ -21,12 +21,13 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
   ({ isEditing, enableEditing, disableEditing, listId }, ref) => {
     const params = useParams()
     const formRef = useRef<ElementRef<"form">>(null)
-    const { execute, isLoading } = useAction(createCard, {
-      onSuccess: data => {
+    const { execute, isLoading, fieldErrors } = useAction(createCard, {
+      onSuccess: (data) => {
         toast.success(`${data.title} created!`)
         formRef.current?.reset() // reset the form values
       },
-      onError: error => {
+      onError: (error) => {
+        console.log("error")
         toast.error(error)
       },
     })
@@ -37,7 +38,9 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
       }
     }
 
-    const onTextareaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = e => {
+    const onTextareaKeydown: KeyboardEventHandler<HTMLTextAreaElement> = (
+      e
+    ) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault()
         formRef.current?.requestSubmit()
@@ -51,7 +54,6 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
       const title = formData.get("title") as string
       const listId = formData.get("listId") as string
       const boardId = params.boardId as string
-
       execute({ title, listId, boardId })
     }
 
@@ -65,10 +67,17 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
           <FormTextArea
             ref={ref}
             id="title"
+            errors={fieldErrors}
             onKeyDown={onTextareaKeydown}
             placeholder="Enter a title for this card..."
           />
-          <input hidden id="listId" name="listId" value={listId} />
+          <input
+            hidden
+            id="listId"
+            name="listId"
+            value={listId}
+            onChange={() => {}}
+          />
           <div className="flex gap-x-1 items-center">
             <FormButton variant="primary">Add Card</FormButton>
             <X className="w-4 h-4 cursor-pointer" onClick={disableEditing} />
