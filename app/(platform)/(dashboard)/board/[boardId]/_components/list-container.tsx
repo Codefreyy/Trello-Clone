@@ -5,6 +5,10 @@ import { ListForm } from "./list-form"
 import { ListItem } from "./list-item"
 import { useEffect, useState } from "react"
 import { DragDropContext, Droppable } from "@hello-pangea/dnd"
+import { useAction } from "@/hooks/use-action"
+import { UpdateListOrder } from "@/actions/update-list-order/schema"
+import { toast } from "sonner"
+import { updateListOrder } from "../../../../../../actions/update-list-order/index"
 
 interface ListContainerProps {
   data: ListWithCards[]
@@ -22,11 +26,18 @@ function reorder<T>(list: T[], startNumber: number, endNumber: number) {
 export const ListContainer = ({ data, boardId }: ListContainerProps) => {
   const [orderedData, setOrderedData] = useState(data)
 
+  const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
+    onSuccess: () => {
+      toast.success("List reordered!")
+    },
+    onError: (error) => {
+      toast.error(error)
+    },
+  })
+
   useEffect(() => {
     setOrderedData(data)
   }, [data])
-
-  console.log("I rendered")
 
   const onDragEnd = (result: any) => {
     const { destination, source, type } = result
@@ -49,8 +60,8 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
           order: index,
         })
       ) // after reorder, the index should also be renewed
-      console.log({ items })
       setOrderedData(items)
+      executeUpdateListOrder({ items, boardId })
     }
 
     // user moves a card
